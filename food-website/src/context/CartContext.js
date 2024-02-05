@@ -16,6 +16,14 @@ const cartReducer = (state, action) => {
           ...state,
           cartItems: state.cartItems.filter(item => item.id !== action.payload),
         };
+        case 'UPDATE_QUANTITY':
+      const updatedCartItems = state.cartItems.map(item =>
+        item.id === action.payload.id ? { ...item, quantity: action.payload.quantity } : item
+      );
+      return {
+        ...state,
+        cartItems: updatedCartItems,
+      };
     default:
       return state;
   }
@@ -33,8 +41,13 @@ export const CartProvider = ({ children }) => {
     dispatch({ type: 'REMOVE_FROM_CART', payload: itemId });
   };
 
+  const updateQuantity = (itemId, newQuantity) => {
+    dispatch({ type: 'UPDATE_QUANTITY', payload: { id: itemId, quantity: newQuantity } });
+  };
+
+
   return (
-    <CartContext.Provider value={{ ...state, addToCart,removeFromCart }}>
+    <CartContext.Provider value={{ ...state, addToCart,removeFromCart,updateQuantity }}>
       {children}
     </CartContext.Provider>
   );

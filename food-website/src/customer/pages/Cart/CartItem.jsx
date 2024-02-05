@@ -5,30 +5,43 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { useCartContext } from '../../../context/CartContext';
 
 const CartItem = ({ item}) => {
-  const [quantity, setQuantity] = useState(item.quantity || 1);
+  //const [quantity, setQuantity] = useState(item.quantity || 1);
  
-  const { removeFromCart,addToCart} = useCartContext();
+  //const { removeFromCart,addToCart} = useCartContext();
+  const { removeFromCart, updateQuantity } = useCartContext();
 
   const handleRemove = () => {
     removeFromCart(item.id);
   };
 
 
+  // const handleDecrease = () => {
+  //   if (item.quantity >= 1) {
+  //     //setQuantity(quantity - 1);
+  //     //setQuantity((prevQuantity) => prevQuantity - 1);
+  //    addToCart({ ...item, quantity: item.quantity - 1 });
+  //   } else {
+  //     handleRemove();
+  //   }
+  // };
+
   const handleDecrease = () => {
-    if (quantity >= 1) {
-      //setQuantity(quantity - 1);
-      setQuantity((prevQuantity) => prevQuantity - 1);
-     // addToCart({ ...item, quantity: quantity - 1 });
+    if (item.quantity > 1) {
+      updateQuantity(item.id, item.quantity - 1);
     } else {
       handleRemove();
     }
   };
 
   const handleIncrease = () => {
-    //setQuantity(quantity + 1);
-     setQuantity((prevQuantity) => prevQuantity + 1);
-    // addToCart({ ...item, quantity: quantity + 1 });
+    updateQuantity(item.id, item.quantity + 1);
   };
+
+  // const handleIncrease = () => {
+  //   //setQuantity(quantity + 1);
+  //    //setQuantity((prevQuantity) => prevQuantity + 1);
+  //    addToCart({ ...item, quantity: item.quantity + 1 });
+  // };
 
   // console.log(`Item: ${item.menuName}, Quantity: ${quantity}`);
 
@@ -52,14 +65,14 @@ const CartItem = ({ item}) => {
                 <IconButton color='primary' onClick={handleDecrease}>
                   <RemoveCircleOutlineIcon />
                 </IconButton>
-                <div className='w-5 h-5 text-xs'>{quantity}</div>
+                <div className='w-5 h-5 text-xs'>{item.quantity}</div>
                 <IconButton color='primary' onClick={handleIncrease}>
                   <AddCircleOutlineIcon />
                 </IconButton>
               </div>
             </div>
 
-        <p>Total: Rs {item.price * quantity || item.price}</p>
+        <p>Total: Rs {item.price * item.quantity || item.price}</p>
           </div>
         </div>
       </div>
