@@ -1,5 +1,3 @@
-
-
 import React, { useState } from 'react'
 import {Card, IconButton} from "@mui/material"
 import {useNavigate} from "react-router-dom";
@@ -7,15 +5,19 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 
-const RestaurantCard = ({item,index}) => {
+const RestaurantCard = ({item,index,addToFavorites, removeFromFavorites}) => {
    const Navigate=useNavigate();
 
    const [isFavorite, setIsFavorite] = useState(false);
 
-  const handleAddToFavorites = () => {
+   const handleAddToFavorites = () => {
     setIsFavorite(!isFavorite);
-   
-    console.log("handle add to favorites");
+
+    // if (!isFavorite) {
+    //   addToFavorites(item); 
+    // } else {
+    //   removeFromFavorites(item); 
+    // }
   };
   return (
     <Card className='m-5 w-[18rem] productCard'>

@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Card } from '@mui/material';
+import { Button, Card, Dialog, DialogTitle, DialogContent, DialogActions, Typography } from '@mui/material';
 //import { useNavigate } from 'react-router-dom';
 import { useCartContext } from '../../../context/CartContext';
 
 const MenuItemCard = () => {
-  const { addToCart } = useCartContext();
+  const { addToCart, cartItems } = useCartContext();
   //const navigate = useNavigate();
   const [menuItem, setMenuItem] = useState([]);
+  const [isAddedToCart, setIsAddedToCart] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   useEffect(() => {
     // Fetch menu item data from the server
@@ -28,9 +30,37 @@ const MenuItemCard = () => {
     }
   };
 
+  const getItemQuantityInCart = (itemId) => {
+    const cartItem = cartItems.find((item) => item.id === itemId);
+    return cartItem ? cartItem.quantity : 0;
+  };
+
+  // const handleAddItemToCart = (selectedItem) => {
+  //   addToCart(selectedItem);
+  //  // navigate('/cart');
+  // };
+
+  // const handleAddItemToCart = (selectedItem) => {
+  //   if (cartItems.find((item) => item.id === selectedItem.id)) {
+  //     setIsDialogOpen(true);
+  //   } else {
+  //     addToCart(selectedItem);
+  //     setIsAddedToCart(true);
+  //   }
+  // };
+
+  // const handleCloseDialog = () => {
+  //   setIsDialogOpen(false);
+  // };
+
   const handleAddItemToCart = (selectedItem) => {
-    addToCart(selectedItem);
-   // navigate('/cart');
+    const existingItem = cartItems.find((item) => item.id === selectedItem.id);
+
+    if (existingItem) {
+      existingItem.quantity += 1;
+    } else {
+      addToCart({ ...selectedItem, quantity: 1 });
+    }
   };
 
   return (
@@ -46,8 +76,22 @@ const MenuItemCard = () => {
             </div>
           </div>
           <div>
-            <Button onClick={() => handleAddItemToCart(menuItem)}>Add To Cart</Button>
+
+           
+            <Button onClick={() => handleAddItemToCart(menuItem)}>
+              Add To Cart
+              <p style={{color: 'gray'}}>{getItemQuantityInCart(menuItem.id)}</p>
+            </Button>
           </div>
+          {/* <Dialog open={isDialogOpen} onClose={handleCloseDialog}>
+              <DialogTitle>Item Already Added</DialogTitle>
+              <DialogContent>
+                <Typography variant="body1">This item is already in your cart.</Typography>
+              </DialogContent>
+              <DialogActions>
+                <Button  variant="contained"   onClick={handleCloseDialog}>OK</Button>
+              </DialogActions>
+            </Dialog> */}
         </Card>
       ))}
     </div>

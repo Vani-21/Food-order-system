@@ -2,7 +2,7 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Button, TextField, Input } from '@mui/material';
+import { Button, TextField, Input, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
 const EditMenuItemForm = ({ initialValues, onSubmit, onFileChange }) => {
   const formik = useFormik({
@@ -20,7 +20,26 @@ const EditMenuItemForm = ({ initialValues, onSubmit, onFileChange }) => {
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      <TextField
+      <FormControl fullWidth variant="outlined" error={formik.touched.category && Boolean(formik.errors.category)}>
+        <InputLabel id="category-label">Category</InputLabel>
+        <Select
+          labelId="category-label"
+          id="category"
+          name="category"
+          value={formik.values.category}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          label="Category"
+        >
+          <MenuItem value="thali">Thali</MenuItem>
+          <MenuItem value="dosa">Dosa</MenuItem>
+          <MenuItem value="pizza">Pizza</MenuItem>
+          <MenuItem value="bread">Bread</MenuItem>
+          {/* Add more categories as needed */}
+        </Select>
+      </FormControl>
+
+      {/* <TextField
         fullWidth
         id="category"
         name="category"
@@ -31,8 +50,8 @@ const EditMenuItemForm = ({ initialValues, onSubmit, onFileChange }) => {
         onBlur={formik.handleBlur}
         error={formik.touched.category && Boolean(formik.errors.category)}
         helperText={formik.touched.category && formik.errors.category}
-      />
-      <TextField
+      /> */}
+      {/* <TextField
         fullWidth
         id="foodType"
         name="foodType"
@@ -43,12 +62,27 @@ const EditMenuItemForm = ({ initialValues, onSubmit, onFileChange }) => {
         onBlur={formik.handleBlur}
         error={formik.touched.foodType && Boolean(formik.errors.foodType)}
         helperText={formik.touched.foodType && formik.errors.foodType}
-      />
+      /> */}
+      <FormControl fullWidth variant="outlined" error={formik.touched.foodType && Boolean(formik.errors.foodType)}>
+        <InputLabel id="foodType-label">Food Type</InputLabel>
+        <Select
+          labelId="foodType-label"
+          id="foodType"
+          name="foodType"
+          value={formik.values.foodType}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          label="Food Type"
+        >
+          <MenuItem value="veg">Veg</MenuItem>
+          <MenuItem value="non-veg">Non-Veg</MenuItem>
+        </Select>
+      </FormControl>
       <TextField
         fullWidth
         id="menuName"
         name="menuName"
-        label="Menu Name"
+        label="Item Name"
         variant="outlined"
         value={formik.values.menuName}
         onChange={formik.handleChange}

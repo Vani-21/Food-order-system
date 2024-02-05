@@ -13,6 +13,7 @@ import RestaurantAccount from '../customer/pages/RestaurantAccount/RestaurantAcc
 import AddMenuItemForm from '../customer/pages/RestaurantAccount/AddMenuItemForm'
 import RestaurantRegister from '../customer/pages/RestaurantAccount/ResturantRegister'
 import Favorites from '../customer/pages/Profile/Favorites'
+import EditMenuItemForm from '../customer/pages/RestaurantAccount/EditMenuItemForm'
 
 
 const CustomerRoutes = () => {
@@ -28,29 +29,18 @@ const CustomerRoutes = () => {
         <Route path='/restaurant/:city/:title/:id' element={<Restaurant />} />
         <Route path='/cart' element={<Cart />} />
         <Route path='/my-profile/*' element={<Profile />} />
-        <Route
-          path='/admin-account'
-          element={<AdminAccount />}
-        />
-        <Route
-          path='/restaurant-account'
-          element={<RestaurantAccount />}
-        />
-           <Route path='/add-menu' element={<AddMenuItemForm />} />
-           <Route path='/restaurantRegister' element={<RestaurantRegister />} />
-           <Route
-          path='/fav'
-          element={<Favorites />}
-        />
+        <Route path='/admin-account' element={<AdminAccount />} />
+        <Route path='/restaurant-account' element={<RestaurantAccount />} />
+        <Route path='/add-menu' element={<AddMenuItemForm />} />
+        <Route path='/edit-menu' element={<EditMenuItemForm />} />
+        <Route path='/restaurantRegister' element={<RestaurantRegister />} />
+        <Route path='/fav' element={<Favorites />} />
       </Routes>
-   
+
 
       <div className='bottom-0 z-50'>
         <Footer />
       </div>
-
-
-
     </div>
   )
 }

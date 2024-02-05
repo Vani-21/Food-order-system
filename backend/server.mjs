@@ -83,6 +83,30 @@ app.get('/create-menu-table', (req, res) => {
   });
 });
 
+
+// // Modify the /menu endpoint to accept query parameters
+// app.get('/menu', (req, res) => {
+//   const { category } = req.query;
+
+//   let sql = 'SELECT * FROM menu';
+
+//   // Check if a category is provided, and adjust the SQL query accordingly
+//   if (category) {
+//     sql = 'SELECT * FROM menu WHERE category = ?';
+//   }
+
+//   db.query(sql, [category], (err, result) => {
+//     if (err) {
+//       console.error('Error fetching menu items:', err);
+//       res.status(500).json({ success: false, message: 'Failed to fetch menu items' });
+//     } else {
+//       console.log('Fetched menu items successfully');
+//       res.status(200).json({ success: true, menuItems: result });
+//     }
+//   });
+// });
+
+
 // Endpoint to fetch all menu items
 app.get('/menu', (req, res) => {
   const sql = 'SELECT * FROM menu';

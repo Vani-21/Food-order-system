@@ -3,6 +3,8 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -81,7 +83,7 @@ const AddMenuItemForm = () => {
             <h2 className='text-white-500 text-2xl mb-3'>Add Menu Item</h2>
             <form onSubmit={formik.handleSubmit}>
               <Grid container spacing={4}>
-                <Grid item xs={12}>
+                {/* <Grid item xs={12}>
                   <TextField
                     fullWidth
                     id="category"
@@ -94,9 +96,33 @@ const AddMenuItemForm = () => {
                     error={formik.touched.category && Boolean(formik.errors.category)}
                     helperText={formik.touched.category && formik.errors.category}
                   />
-                </Grid>
+                </Grid> */}
 
                 <Grid item xs={12}>
+                  <Select
+                    fullWidth
+                    id="category"
+                    name="category"
+                    label="Category"
+                    variant="outlined"
+                    value={formik.values.category}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.touched.category && Boolean(formik.errors.category)}
+                  >
+                    <MenuItem value="thali">Thali</MenuItem>
+                    <MenuItem value="dosa">Dosa</MenuItem>
+                    <MenuItem value="pizza">Pizza</MenuItem>
+                    <MenuItem value="bread">Bread</MenuItem>
+                    {/* Add more categories as needed */}
+                  </Select>
+                  {formik.touched.category && formik.errors.category && (
+                    <div style={{ color: 'red' }}>{formik.errors.category}</div>
+                  )}
+                </Grid>
+
+
+                {/* <Grid item xs={12}>
                   <TextField
                     fullWidth
                     id="foodType"
@@ -109,6 +135,27 @@ const AddMenuItemForm = () => {
                     error={formik.touched.foodType && Boolean(formik.errors.foodType)}
                     helperText={formik.touched.foodType && formik.errors.foodType}
                   />
+                </Grid> */}
+
+                <Grid item xs={12}>
+                  <Select
+                    fullWidth
+                    id="foodType"
+                    name="foodType"
+                    label="Food Type"
+                    variant="outlined"
+                    value={formik.values.foodType}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.touched.foodType && Boolean(formik.errors.foodType)}
+
+                  >
+                    <MenuItem value="veg">Veg</MenuItem>
+                    <MenuItem value="nonveg">Non-Veg</MenuItem>
+                  </Select>
+                  {formik.touched.foodType && formik.errors.foodType && (
+                    <div style={{ color: 'red' }}>{formik.errors.foodType}</div>
+                  )}
                 </Grid>
 
                 <Grid item xs={12}>
@@ -116,7 +163,7 @@ const AddMenuItemForm = () => {
                     fullWidth
                     id="menuName"
                     name="menuName"
-                    label="Menu Name"
+                    label="Item Name"
                     variant="outlined"
                     value={formik.values.menuName}
                     onChange={formik.handleChange}
